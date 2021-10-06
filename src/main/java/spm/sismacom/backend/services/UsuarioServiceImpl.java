@@ -34,7 +34,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public Usuario findByID(Integer id) {
         return dataRepo.findById(id).orElse(null);
     }
-    
+
     @Override
     @Transactional(readOnly = true)
     public Usuario findUser(String nombre_usuario, String pass_usuario) {
@@ -57,7 +57,5 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public Usuario edit(Usuario u) {
         return null;
     }
-
-    
 
 }
