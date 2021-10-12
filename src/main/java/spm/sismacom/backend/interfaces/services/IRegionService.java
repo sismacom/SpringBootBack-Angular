@@ -6,23 +6,22 @@
 package spm.sismacom.backend.interfaces.services;
 
 import java.util.List;
-import spm.sismacom.backend.entidades.Usuario;
+import spm.sismacom.backend.entidades.Region;
 
 /**
  *
  * @author SISMACOM
  */
-public interface IUsuarioService {
+public interface IRegionService {
 
-    public List<Usuario> findAll();
+    public List<Region> findAll();
 
-    public Usuario findByID(Integer id);
-    
-    //public Usuario findUser(String nombreUsuario);
+    public Region findByID(Integer id);
 
-    public Usuario save(Usuario u);
+    //public Region findByName(String nombreRegion);
+    public Region save(Region region);
 
-    public Usuario update(Usuario u);
+    public Region update(Region region);
 
     public void delete(Integer id);
 

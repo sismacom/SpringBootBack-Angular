@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package spm.sismacom.backend.model;
+package spm.sismacom.backend.entidades;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -18,7 +18,6 @@ public class Usuario extends EntidadBase {
 
     private String nombreUsuario;
     private String passUsuario;
-    
 
     public String getNombreUsuario() {
         return nombreUsuario;

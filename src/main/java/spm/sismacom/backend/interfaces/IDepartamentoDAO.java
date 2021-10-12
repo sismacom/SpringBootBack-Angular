@@ -6,17 +6,12 @@
 package spm.sismacom.backend.interfaces;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-import spm.sismacom.backend.model.Usuario;
+import spm.sismacom.backend.entidades.Departamento;
 
 /**
  *
  * @author SISMACOM
  */
-@Repository
-public interface IUsuarioRepository extends CrudRepository<Usuario, Integer> {
+public interface IDepartamentoDAO extends CrudRepository<Departamento, Integer> {
     
-    public Usuario findByUser(String nombre_usuario,String pass_usuario);
-
-
 }

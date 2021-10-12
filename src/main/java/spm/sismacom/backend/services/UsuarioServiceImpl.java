@@ -9,9 +9,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import spm.sismacom.backend.entidades.Usuario;
+
 import spm.sismacom.backend.interfaces.services.IUsuarioService;
-import spm.sismacom.backend.model.Usuario;
-import spm.sismacom.backend.interfaces.IUsuarioRepository;
+import spm.sismacom.backend.interfaces.IUsuarioDAO;
 
 /**
  *
@@ -21,25 +22,26 @@ import spm.sismacom.backend.interfaces.IUsuarioRepository;
 public class UsuarioServiceImpl implements IUsuarioService {
 
     @Autowired
-    private IUsuarioRepository dataRepo;
+    private IUsuarioDAO dataRepo;
+    
+    /*@Autowired
+    private JpaUtil jpaUtil=new JpaUtil();*/
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Usuario> listar() {
-        return (List<Usuario>) dataRepo.findAll();
-    }
+    
 
     @Override
     @Transactional(readOnly = true)
     public Usuario findByID(Integer id) {
         return dataRepo.findById(id).orElse(null);
     }
-
+    
     @Override
     @Transactional(readOnly = true)
-    public Usuario findUser(String nombre_usuario, String pass_usuario) {
-        return dataRepo.findByUser(nombre_usuario, pass_usuario);
+    public List<Usuario> findAll() {
+        return (List<Usuario>) dataRepo.findAll();
     }
+
+    
 
     @Override
     @Transactional
@@ -49,13 +51,21 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     @Transactional
-    public void delete(Integer id) {
-        dataRepo.deleteById(id);
+    public Usuario update(Usuario u) {
+        return (Usuario) dataRepo.save(u);
     }
 
     @Override
-    public Usuario edit(Usuario u) {
-        return null;
+    @Transactional
+    public void delete(Integer id) {
+        dataRepo.deleteById(id);
     }
+/*
+    @Override
+    public Usuario findUser(String nombreUsuario) {
+        return jpaUtil.findByName(nombreUsuario);
+    }*/
+
+    
 
 }
