@@ -5,6 +5,7 @@
  */
 package spm.sismacom.backend.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,13 +40,25 @@ public class RegionRestController {
     private IPaisService paisServ;
 
     @GetMapping("/region/listartodos")
-    public List<Region> getAllUsers() {
+    public List<Region> getAllRegiones() {
         return regionService.findAll();
     }
 
     @GetMapping("/region/buscarbyid/{id}")
     public Region show(@PathVariable Integer id) {
         return regionService.findByID(id);
+    }
+
+    @GetMapping("/region/buscarbyname/{nombre}")
+    public List<Region> findByName(@PathVariable String nombre) {
+        List<Region> resultado = new ArrayList<>();
+        List<Region> lista = getAllRegiones();
+        for (Region region : lista) {
+            if (region.getNombre().toLowerCase().contains(nombre.toLowerCase())) {
+                resultado.add(region);
+            }
+        }
+        return resultado;
     }
 
     @PostMapping("/region/nuevo/{id}")
@@ -56,10 +69,9 @@ public class RegionRestController {
         return regionService.save(region);
     }
 
-    @PutMapping("/region/actualizar/{id}")
+    @PutMapping("/region/actualizar")
     @ResponseStatus(HttpStatus.CREATED)
-    public Region update(@RequestBody Region region, @PathVariable Integer id) {
-        //Region usactual=service.findByID(id);
+    public Region update(@RequestBody Region region) {
         return regionService.save(region);
     }
 

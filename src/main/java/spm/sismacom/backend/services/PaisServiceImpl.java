@@ -53,4 +53,15 @@ public class PaisServiceImpl implements IPaisService {
         paisDao.deleteById(id);
     }
 
+    @Override
+    public Pais findByName(String nombre) {
+        List<Pais> paises = this.findAll();
+        for (Pais pais : paises) {
+            if (pais.getNombre().equalsIgnoreCase(nombre)) {
+                return pais;
+            }
+        }
+        return null;
+    }
+
 }

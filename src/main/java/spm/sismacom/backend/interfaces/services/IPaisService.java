@@ -17,6 +17,8 @@ public interface IPaisService {
     public List<Pais> findAll();
 
     public Pais findByID(Integer id);
+    
+    public Pais findByName(String nombre);
 
     //public Pais findByName(String nombrePais);
     public Pais save(Pais pais);

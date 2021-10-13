@@ -5,6 +5,7 @@
  */
 package spm.sismacom.backend.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import spm.sismacom.backend.entidades.Departamento;
+import spm.sismacom.backend.entidades.Region;
 import spm.sismacom.backend.interfaces.services.IDepartamentoService;
 import spm.sismacom.backend.interfaces.services.IRegionService;
 
@@ -30,15 +32,15 @@ import spm.sismacom.backend.interfaces.services.IRegionService;
 @RestController
 @RequestMapping("/api")
 public class DepartamentoRestController {
-    
+
     @Autowired
     private IDepartamentoService deparService;
-    
+
     @Autowired
     private IRegionService regionService;
-    
+
     @GetMapping("/departamento/listartodos")
-    public List<Departamento> getAllUsers() {
+    public List<Departamento> getAllDepartamentos() {
         return deparService.findAll();
     }
 
@@ -47,18 +49,29 @@ public class DepartamentoRestController {
         return deparService.findByID(id);
     }
 
+    @GetMapping("/departamento/buscarbyname/{nombre}")
+    public List<Departamento> findByName(@PathVariable String nombre) {
+        List<Departamento> resultado = new ArrayList<>();
+        List<Departamento> lista = getAllDepartamentos();
+        for (Departamento depar : lista) {
+            if (depar.getNombre().toLowerCase().contains(nombre.toLowerCase())) {
+                resultado.add(depar);
+            }
+        }
+        return resultado;
+    }
+
     @PostMapping("/departamento/nuevo/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Departamento create(@RequestBody Departamento departamento,@PathVariable Integer id) {
+    public Departamento create(@RequestBody Departamento departamento, @PathVariable Integer id) {
         departamento.setRegion(regionService.findByID(id));
         System.out.println("EL DEPARTAMENTO ES: " + departamento);
         return deparService.save(departamento);
     }
 
-    @PutMapping("/departamento/actualizar/{id}")
+    @PutMapping("/departamento/actualizar")
     @ResponseStatus(HttpStatus.CREATED)
-    public Departamento update(@RequestBody Departamento departamento, @PathVariable Integer id) {
-        //Departamento usactual=service.findByID(id);
+    public Departamento update(@RequestBody Departamento departamento) {
         return deparService.save(departamento);
     }
 
@@ -67,6 +80,5 @@ public class DepartamentoRestController {
     public void eliminar(@PathVariable Integer id) {
         deparService.delete(id);
     }
-    
-    
+
 }

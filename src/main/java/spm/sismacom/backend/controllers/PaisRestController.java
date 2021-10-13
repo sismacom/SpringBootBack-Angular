@@ -5,6 +5,7 @@
  */
 package spm.sismacom.backend.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,13 +35,26 @@ public class PaisRestController {
     private IPaisService paisService;
 
     @GetMapping("/pais/listartodos")
-    public List<Pais> getAllUsers() {
+    public List<Pais> getAllPaises() {
         return paisService.findAll();
     }
 
     @GetMapping("/pais/buscarbyid/{id}")
     public Pais show(@PathVariable Integer id) {
         return paisService.findByID(id);
+    }
+
+    @GetMapping("/pais/buscarbyname/{nombre}")
+    public List<Pais> findByName(@PathVariable String nombre) {
+        //System.out.println("EL NOMBRE PARA BUSCAR ES: " + nombre);
+        List<Pais> resultado = new ArrayList<>();
+        List<Pais> lista = getAllPaises();
+        for (Pais pais : lista) {
+            if (pais.getNombre().toLowerCase().contains(nombre.toLowerCase())) {
+                resultado.add(pais);
+            }
+        }
+        return resultado;
     }
 
     @PostMapping("/pais/nuevo")
@@ -50,10 +64,9 @@ public class PaisRestController {
         return paisService.save(pais);
     }
 
-    @PutMapping("/pais/actualizar/{id}")
+    @PutMapping("/pais/actualizar")
     @ResponseStatus(HttpStatus.CREATED)
-    public Pais update(@RequestBody Pais pais, @PathVariable Integer id) {
-        //Pais usactual=service.findByID(id);
+    public Pais update(@RequestBody Pais pais) {
         return paisService.save(pais);
     }
 

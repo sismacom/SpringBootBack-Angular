@@ -9,9 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import spm.sismacom.backend.entidades.Pais;
 import spm.sismacom.backend.entidades.Region;
-import spm.sismacom.backend.interfaces.IPaisDAO;
 import spm.sismacom.backend.interfaces.IRegionDAO;
 import spm.sismacom.backend.interfaces.services.IRegionService;
 
